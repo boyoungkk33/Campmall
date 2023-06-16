@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.product">
+	<!-- product join -->
+	<insert id="join" parameterType="com.campmall.vo.CpmProductVO">
+		insert into cpm_product	
+			 values ('p_'||sequ_cpm_product.nextval, #{category}, #{prdNm}, #{brdNm}, #{price}, #{dc}, #{sale}, #{stock}, #{event}, sysdate)
+	</insert>
+	
+	
+	<!-- product list -->
+	<select id="list" resultType="com.campmall.vo.CpmProductVO">
+		select rownum rno, pid, category, prdnm, brdnm, price, dc, sale, stock, event, pdate from cpm_product
+	</select>
+	
+	<!-- product selectList -->
+	<select id="selectList" parameterType="java.lang.String" resultType="com.campmall.vo.CpmProductVO">
+		select rownum rno, pid, category, prdnm, brdnm, price, dc, sale, stock, event, pdate from cpm_product where event=#{event}
+	</select>
+	
+	<!-- product detailList -->
+	<select id="detailList" parameterType="com.campmall.vo.CpmProductVO" resultType="com.campmall.vo.CpmProductVO">
+		select rownum rno, pid, category, prdnm, brdnm, price, dc, sale, stock, event, pdate from cpm_product where event=#{event} and category=#{category}
+	</select>
+	
+	<!-- product content -->
+	<select id="content" parameterType="java.lang.String" resultType="com.campmall.vo.CpmProductVO">
+		select pid, category, prdnm, brdnm, price, dc, sale, stock, event, pdate
+		 from cpm_product  where pid=#{pid}
+	</select>
+	
+	<!-- product update -->
+	<update id="update" parameterType="com.campmall.vo.CpmProductVO">
+		update cpm_product set category=#{category}, prdNm=#{prdNm}, brdNm=#{brdNm}, price=#{price}, dc=#{dc}, sale=#{sale}, stock=#{stock}, event=#{event} 
+		 where pid=#{pid}
+	</update> 
+	
+	<!-- board delete -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from cpm_product where pid=#{pid}
+	</delete>
+	
+</mapper>

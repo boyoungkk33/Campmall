@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+	<!-- member join -->
+	<insert id="join" parameterType="com.campmall.vo.CpmMemberVO" >
+		insert into cpm_member	
+			 values (#{email}, #{pwd}, #{postcode}, #{address}, #{detailAddress}, #{phone}, #{name}, #{condition}, #{agreement}, #{mes}, #{email2}, sysdate)
+	</insert>
+	
+	<!-- member login -->
+	<select id="login" parameterType="com.campmall.vo.CpmMemberVO" resultType="com.campmall.vo.SessionVO">
+		select count(*) loginresult, name, email from cpm_member where email=#{email} and pwd=#{pwd} group by name, email
+	</select>
+	
+</mapper>
+
+
+
